@@ -20,9 +20,18 @@ def parity_precomputed(x: int) -> int:
         x >>= 16
     return result
 
-if __name__ == '__main__':
-    generic_test.generic_test_main('parity.py', 'parity.tsv', parity)
-    print('Pre-computed parity')
-    generic_test.generic_test_main('parity.py', 'parity.tsv', parity_precomputed)
+def parity_logn(x: int) -> int:
+    shift_size = 32
+    while (shift_size >= 1):
+        # print(shift_size)
+        x = (x >> shift_size) ^ x
+        shift_size //= 2
+    return x & 1
 
+if __name__ == '__main__':
+    # generic_test.generic_test_main('parity.py', 'parity.tsv', parity)
+    # print('Pre-computed parity')
+    # generic_test.generic_test_main('parity.py', 'parity.tsv', parity_precomputed)
+    print('Parity logn')
+    generic_test.generic_test_main('parity.py', 'parity.tsv', parity_logn)
 
