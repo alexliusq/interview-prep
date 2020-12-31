@@ -25,7 +25,7 @@ def parity_logn(x: int) -> int:
     while (shift_size >= 1):
         # print(shift_size)
         x = (x >> shift_size) ^ x
-        shift_size //= 2
+        shift_size //= 2 ## floor division!!
     return x & 1
 
 if __name__ == '__main__':
