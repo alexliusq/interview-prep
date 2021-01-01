@@ -10,13 +10,19 @@ from test_framework.test_utils import enable_executor_hook
 def even_odd(A: List[int]) -> None:
     even_end = 0
     odd_start = len(A) - 1
-    while(even_end != odd_start):
+    # while(even_end != odd_start):
+    
+    ## less than is clearer than you want the two boundaries to not intersect
+    while(even_end < odd_start):
         if (A[even_end] % 2 == 0):
             even_end += 1
         else:
-            temp = A[even_end]
-            A[even_end] = A[odd_start]
-            A[odd_start] = temp
+            # temp = A[even_end]
+            # A[even_end] = A[odd_start]
+            # A[odd_start] = temp
+
+            ## a more pythonic way to swap
+            A[even_end], A[odd_start] = A[odd_start], A[even_end]
             odd_start -= 1
     return A
 
