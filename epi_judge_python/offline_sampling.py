@@ -9,18 +9,24 @@ from test_framework.test_utils import enable_executor_hook
 
 import random
 
+# def random_sampling(k: int, A: List[int]) -> None:
+#     # print(A, k, sep=', ')
+#     last_index = len(A) - 1
+#     num_delete = len(A) - k
+#     delete_to = last_index - num_delete
+#     # print(f'end{last_index}, delete until {delete_to}')
+#     # print(list(range(last_index, delete_to, -1)))
+#     for i in range(last_index, delete_to, -1):
+#         delete_idx = random.randint(0, i)
+#         # print(f'rand int {delete_idx}')
+#         del A[delete_idx]
+#     # print(A)
+
 def random_sampling(k: int, A: List[int]) -> None:
-    # print(A, k, sep=', ')
-    last_index = len(A) - 1
-    num_delete = len(A) - k
-    delete_to = last_index - num_delete
-    # print(f'end{last_index}, delete until {delete_to}')
-    # print(list(range(last_index, delete_to, -1)))
-    for i in range(last_index, delete_to, -1):
-        delete_idx = random.randint(0, i)
-        # print(f'rand int {delete_idx}')
-        del A[delete_idx]
-    # print(A)
+    end_idx = len(A) - 1
+    for i in range (k):
+        choice = random.randint(i, end_idx)
+        A[i], A[choice] = A[choice], A[i]
 
 
 @enable_executor_hook
