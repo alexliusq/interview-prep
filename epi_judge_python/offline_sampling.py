@@ -7,10 +7,20 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
+import random
 
 def random_sampling(k: int, A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+    # print(A, k, sep=', ')
+    last_index = len(A) - 1
+    num_delete = len(A) - k
+    delete_to = last_index - num_delete
+    # print(f'end{last_index}, delete until {delete_to}')
+    # print(list(range(last_index, delete_to, -1)))
+    for i in range(last_index, delete_to, -1):
+        delete_idx = random.randint(0, i)
+        # print(f'rand int {delete_idx}')
+        del A[delete_idx]
+    # print(A)
 
 
 @enable_executor_hook
@@ -41,6 +51,9 @@ def random_sampling_wrapper(executor, k, A):
 
 
 if __name__ == '__main__':
+    # test_list = [1,2,3,4]
+    # random_sampling(1, test_list)
+    # print(test_list)
     exit(
         generic_test.generic_test_main('offline_sampling.py',
                                        'offline_sampling.tsv',
