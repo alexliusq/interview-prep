@@ -33,8 +33,12 @@ from test_framework.test_utils import enable_executor_hook
 # Returns the number of valid entries after deletion.
 def delete_duplicates(A: List[int]) -> int:
     ## handle special case of array with only one value
-    if len(A) == 1:
-        return 1
+    ## actually don't need to handle special case
+    # if len(A) == 1:
+    #     return 1
+    if not A:
+        return 0
+    
     total_valid = 1
     for i in range(1, len(A)):
         ## test [1,1,2,3,3,4,5,6,6]. i = 1, duplicate
