@@ -9,7 +9,7 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def solve_sudoku(partial_assignment: List[List[int]]) -> bool:
-    # TODO - you fill in here.
+    print(partial_assignment)
     return True
 
 

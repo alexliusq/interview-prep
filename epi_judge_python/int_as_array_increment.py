@@ -22,9 +22,12 @@ def plus_one(A: List[int]) -> List[int]:
         else:
             A[next_digit] = 0
         next_digit -= 1
-        
+
     if (increment):
-        return [1] + A
+        # return [1] + A
+        ##smarter EPI way
+        A[0] = 1
+        A.append(0)
     return A
 
 def brute_force(A: List[int]) -> List[int]:
