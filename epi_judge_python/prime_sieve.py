@@ -25,7 +25,9 @@ def brute_force(n: int) -> List[int]:
 def generate_primes(n: int) -> List[int]:
     ## generate boolean array, O(n)
     primes = []
-    possible_prime = [True for x in range(0, n+1)]
+    # possible_prime = [True for x in range(0, n+1)]
+    ## more correct EPI version
+    possible_prime = [False, False] + [True] * (n-1) 
     for i in range(2, n+1):
         if possible_prime[i]:
             primes.append(i)
