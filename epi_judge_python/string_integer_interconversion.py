@@ -41,10 +41,10 @@ def string_to_int(s: str) -> int:
         '6': 6,
         '7': 7,
         '8': 8,
-        '9': 9   
+        '9': 9 
     }
     str_length = len(s)
-    result_int = 0
+    result_int: int = 0
     is_negative = False
     for i in range(str_length):
         if s[i] == '-':
@@ -52,7 +52,12 @@ def string_to_int(s: str) -> int:
             continue
         if s[i] == '+':
             continue
-        result_int += string_dict.get(s[i]) * (10 ** (str_length - 1 - i))
+        # result_int += string_dict.get(s[i]) * (10 ** (str_length - 1 - i))
+        ## the more elegant solution
+        digit_str = string_dict.get(s[i])
+        if type(digit_str) is int:
+            result_int = result_int * 10 + digit_str
+        
     return -result_int if is_negative else result_int
 
 
