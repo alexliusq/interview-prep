@@ -4,8 +4,27 @@ from test_framework import generic_test, test_utils
 
 
 def phone_mnemonic(phone_number: str) -> List[str]:
-    # TODO - you fill in here.
-    return []
+    number_arr = [
+        ['0'],
+        ['1'],
+        ['A', 'B', 'C'],
+        ['D', 'E', 'F'],
+        ['G', 'H', 'I'],
+        ['J', 'K', 'L'],
+        ['M', 'N', 'O'],
+        ['P', 'Q', 'R', 'S'],
+        ['T', 'U', 'V'],
+        ['W', 'X', 'Y', 'Z'],
+    ]
+    if len(phone_number) == 0:
+        return []
+    if len(phone_number) == 1:
+        return number_arr[int(phone_number[0])]
+    return [
+        character + remainder
+        for remainder in phone_mnemonic(phone_number[1:])
+            for character in number_arr[int(phone_number[0])]
+    ]
 
 
 if __name__ == '__main__':
