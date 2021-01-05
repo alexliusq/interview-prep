@@ -7,11 +7,14 @@ from test_framework.test_utils import enable_executor_hook
 
 def replace_and_remove(size: int, s: List[str]) -> int:
     result_size = 0
+    count_a = 0
     for i in range(size):
         if s[i] != 'b':
             s[result_size] = s[i]
             result_size += 1
-    count_a = s[:result_size].count('a')
+        if s[i] == 'a':
+            count_a += 1
+    # count_a = s[:result_size].count('a')
     full_size = result_size + count_a
     idx = result_size - 1
     while count_a > 0:
