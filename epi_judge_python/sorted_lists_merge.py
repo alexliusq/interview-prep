@@ -7,19 +7,21 @@ from test_framework import generic_test
 def merge_two_sorted_lists(L1: Optional[ListNode],
                            L2: Optional[ListNode]) -> Optional[ListNode]:
     dummy_head = tail = ListNode()
-    current = dummy_head
-    while L1 is not None and L2 is not None:
+    
+    # while L1 is not None and L2 is not None:
+    while L1 and L2:
         if L1.data <= L2.data:
-            current.next = L1
+            tail.next = L1
             L1 = L1.next
         else:
-            current.next = L2
+            tail.next = L2
             L2 = L2.next
-        current = current.next
-    if L1 is not None:
-        current.next = L1
-    if L2 is not None:
-        current.next = L2
+        tail = tail.next
+    # if L1 is not None:
+    #     tail.next = L1
+    # if L2 is not None:
+    #     tail.next = L2
+    tail.next = L1 or L2
     return dummy_head.next
 
 
