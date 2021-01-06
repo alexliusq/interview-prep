@@ -6,19 +6,17 @@ def look_and_say(n: int) -> str:
         return '1'
     previous = look_and_say(n-1)
     result = []
-    count = 0
-    digit = previous[0]
-    for i in range(len(previous)):
-        if digit == previous[i]:
+    count = 1
+    i = 0
+    while i  < len(previous):
+        while i + 1 < len(previous) and previous[i] == previous[i + 1]:
+            i += 1
             count += 1
-        else:
-            result.append(f'{count}{digit}')
-            count = 1
-            digit = previous[i]
-    ## append last pair
-    result.append(f'{count}{digit}')
+        result.append(f'{count}{previous[i]}')
+        count = 1
+        i += 1
     return ''.join(result)
-    
+
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('look_and_say.py', 'look_and_say.tsv',
