@@ -740,7 +740,7 @@ problem_mapping = {
                 "total": 106
             },
             "Python: do_terminated_lists_overlap.py": {
-                "passed": 106,
+                "passed": 5,
                 "total": 106
             }
         },
