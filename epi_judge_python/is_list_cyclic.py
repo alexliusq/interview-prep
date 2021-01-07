@@ -6,11 +6,44 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+## O(n) space method
+# def has_cycle(head: ListNode) -> Optional[ListNode]:
+#     iterator = head
+#     visited = set()
+#     while iterator.next:
+#         if id(iterator) in visited:
+#             return iterator
+#         else:
+#             visited.add(id(iterator))
+#         iterator = iterator.next
+#     return None
 
 def has_cycle(head: ListNode) -> Optional[ListNode]:
-    # TODO - you fill in here.
-    return None
+    def cycle_length(inside_node):
+        start = end = inside_node
+        count = 0
+        while True:
+            end = end.next
+            count += 1
+            if end is start:
+                break
+        return count
 
+    slow = fast = head
+    while fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow is fast:
+            iter = head
+            for _ in range(cycle_length(slow)):
+                iter = iter.next
+            cycle_start = head
+            while cycle_start is not iter:
+                cycle_start = cycle_start.next
+                iter = iter.next
+            return cycle_start
+    return None
 
 @enable_executor_hook
 def has_cycle_wrapper(executor, head, cycle_idx):
