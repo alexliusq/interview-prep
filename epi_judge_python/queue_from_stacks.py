@@ -3,14 +3,31 @@ from test_framework.test_failure import TestFailure
 
 
 class Queue:
+    def __init__(self) -> None:
+        self.push_stack = []
+        self.pop_stack = []
+    ## your method is worst case O(N) because each element gets pushed or popped if
+    ## enqueue and dequeue are not sequential
+    # def enqueue(self, x: int) -> None:
+    #     while self.pop_stack:
+    #         self.push_stack.append(self.pop_stack.pop())
+    #     self.push_stack.append(x)
+    #     return
+
+    # def dequeue(self) -> int:
+    #     while self.push_stack:
+    #         self.pop_stack.append(self.push_stack.pop())
+    #     return self.pop_stack.pop()
+
     def enqueue(self, x: int) -> None:
-        # TODO - you fill in here.
+        self.push_stack.append(x)
         return
 
     def dequeue(self) -> int:
-        # TODO - you fill in here.
-        return 0
-
+        if not self.pop_stack:
+            while self.push_stack:
+                self.pop_stack.append(self.push_stack.pop())
+        return self.pop_stack.pop()
 
 def queue_tester(ops):
     try:
