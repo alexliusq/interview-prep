@@ -2,8 +2,22 @@ from test_framework import generic_test
 
 
 def is_well_formed(s: str) -> bool:
-    # TODO - you fill in here.
-    return True
+    tokenized = list(s)
+    brackets = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+    left_brackets = []
+    for token in tokenized:
+        if token in brackets:
+            left_brackets.append(token)
+        else:
+            if len(left_brackets) == 0:
+                return False
+            if brackets[left_brackets.pop()] != token:
+                return False
+    return len(left_brackets) == 0
 
 
 if __name__ == '__main__':
