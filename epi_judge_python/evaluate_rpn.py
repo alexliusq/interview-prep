@@ -13,16 +13,14 @@ def evaluate(expression: str) -> int:
     }
     parsed = expression.split(',')
 
-    while i < len(parsed):
-        element = parsed[i]
-        i += 1
-        if element in operations:
-            y = int(stack.pop())
-            x = int(stack.pop())
-            result = operations[element](x, y)
+    for token in parsed:
+        if token in operations:
+            y = stack.pop()
+            x = stack.pop()
+            result = operations[token](x, y)
             stack.append(result)
         else:
-            stack.append(int(element))
+            stack.append(int(token))
     return stack[-1]
 
 
