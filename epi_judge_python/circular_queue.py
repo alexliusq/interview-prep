@@ -11,22 +11,31 @@ class Queue:
         self.size_count = 0
 
     def enqueue(self, x: int) -> None:
-        self.size_count += 1
-        if self.size_count > self.capacity:
-            old_capacity = self.capacity
-            self.capacity = self.capacity * 2
-            new_storage = [0] * self.capacity
-            for i in range(old_capacity):
-                new_storage[i] = self.storage[(self.start + i) % old_capacity]
-            self.storage = new_storage
+        if self.size_count == self.capacity:
+            # old_capacity = self.capacity
+            # self.capacity = self.capacity * 2
+            # new_storage = [0] * self.capacity
+            # for i in range(old_capacity):
+            #     new_storage[i] = self.storage[(self.start + i) % old_capacity]
+            # self.storage = new_storage
+            # self.start = 0
+            # self.end = old_capacity
+            
+            ## cleaner approach
+            self.storage = [*self.storage[self.start:], *self.storage[:self.start]]
+            self.storage = self.storage + ([0] * self.capacity)
             self.start = 0
-            self.end = old_capacity
+            self.end = self.capacity
+            self.capacity *= 2
         # print(self.storage)
         self.storage[self.end] = x
         self.end = (self.end + 1) % self.capacity
+        self.size_count += 1
         return
 
     def dequeue(self) -> int:
+        if not self.size_count:
+            raise IndexError('empty queue')
         result = self.storage[self.start]
         self.size_count -= 1
         self.start = (self.start + 1) % self.capacity
