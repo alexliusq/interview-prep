@@ -9,8 +9,30 @@ DuplicateAndMissing = collections.namedtuple('DuplicateAndMissing',
 
 
 def find_duplicate_missing(A: List[int]) -> DuplicateAndMissing:
-    # TODO - you fill in here.
-    return DuplicateAndMissing(0, 0)
+    diff_xor = 0
+    for x in range(len(A)):
+        diff_xor = diff_xor ^ x ^ A[x]
+
+    ## diff_xor now is the xor of missing and duplicate
+
+    ## this is the genius part from EPI that you didn't figure out
+    ## difference in bit in the diff_xor means that either the missing or
+    ## duplicate has that bit set. do XOR magic for both ranges where that bit
+    ## is set, and you will be able to isolate the missing or the duplicate
+    set_bit = diff_xor & (~(diff_xor - 1))
+    candidate = 0
+    for x in range(len(A)):
+        if x & set_bit:
+            candidate ^= x
+        if A[x] & set_bit:
+            candidate ^= A[x]
+    
+    other = diff_xor ^ candidate
+    # print('candidate', candidate, ' other:', other, 'diff_xor', diff_xor)
+    if candidate in A:
+        return DuplicateAndMissing(candidate, other)
+    else:
+        return DuplicateAndMissing(other, candidate)
 
 
 def res_printer(prop, value):
