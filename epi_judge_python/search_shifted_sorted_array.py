@@ -26,14 +26,18 @@ from test_framework import generic_test
 #     return smallest(A, start, end)
 
 def search_smallest(A: List[int]) -> int:
+    ## ALL ELEMENTS ARE DISTINCT
     start = 0
     end = len(A) - 1
     while start < end:
         middle = (start + end) // 2
         if A[middle] > A[end]:
+            # min must be in A[mid + 1: end + 1]
             start = middle + 1
         elif A[middle] < A[end]:
+            # min can't be in A[mid + 1:], so must be in A[start: mid + 1]
             end = middle
+    ## returns when start == end
     return start
 
 if __name__ == '__main__':
