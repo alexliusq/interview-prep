@@ -4,8 +4,7 @@ import random
 
 from test_framework import generic_test
 
-def partial_sort(A, start, end) -> int:
-    pivot_index = random.randint(start, end)
+def partial_sort(A, start, end, pivot_index) -> int:
     pivot = A[pivot_index]
     A[end], A[pivot_index] = A[pivot_index], A[end]
     left, right = start, end
@@ -29,23 +28,22 @@ def partial_sort(A, start, end) -> int:
 # find_kth_largest(1, A) returns 3, find_kth_largest(2, A) returns 2,
 # find_kth_largest(3, A) returns 1, and find_kth_largest(4, A) returns -1.
 def find_kth_largest(k: int, A: List[int]) -> int:
-
-
     start = 0
     end = len(A) - 1
-    potential_k = partial_sort(A, start, end)
     # print(A)
     # print(potential_k)
     target_k = len(A) - k
-    while (potential_k != target_k):
-        if potential_k < target_k:
+    while (start <= end):
+        pivot_index = random.randint(start, end)
+        potential_k = partial_sort(A, start, end, pivot_index)
+        if potential_k == target_k:
+            return A[potential_k]
+        elif potential_k < target_k:
             start = potential_k + 1
         else:
             end = potential_k - 1
-            
-        potential_k = partial_sort(A, start, end)
 
-    return A[potential_k]
+    raise IndexError('no k-th node')
 
 
 if __name__ == '__main__':
