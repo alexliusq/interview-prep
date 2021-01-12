@@ -1,34 +1,63 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
-from collections import deque
+from collections import OrderedDict
+
+# class LruCache:
+#     def __init__(self, capacity: int) -> None:
+#         self.capacity = capacity
+#         self.cache = {}
+#         self.age = -1
+#         return
+    
+#     def get_age(self) -> int:
+#         self.age += 1
+#         return self.age
+
+#     def lookup(self, isbn: int) -> int:
+#         # print(self.cache)
+#         if isbn in self.cache:
+#             price = self.cache[isbn][0]
+#             self.cache[isbn] = (price, self.get_age())
+#             return price
+#         return -1
+
+#     def insert(self, isbn: int, price: int) -> None:
+#         if isbn in self.cache:
+#             self.cache[isbn] = (self.cache[isbn][0], self.get_age())
+#         else:
+#             if len(self.cache) == self.capacity:
+#                 oldest_isbn = min((value[1], isbn) for isbn, value in self.cache.items())[1]
+#                 self.erase(oldest_isbn)
+#             self.cache[isbn] = (price, self.get_age())
+#         return
+
+#     def erase(self, isbn: int) -> bool:
+#         if isbn in self.cache:
+#             del self.cache[isbn]
+#             return True
+#         return False
+
 class LruCache:
     def __init__(self, capacity: int) -> None:
         self.capacity = capacity
-        self.cache = {}
-        self.age = -1
+        self.cache = OrderedDict()
         return
-    
-    def get_age(self) -> int:
-        self.age += 1
-        return self.age
 
     def lookup(self, isbn: int) -> int:
         # print(self.cache)
         if isbn in self.cache:
-            price = self.cache[isbn][0]
-            self.cache[isbn] = (price, self.get_age())
-            return price
+            self.cache.move_to_end(isbn)
+            return self.cache[isbn]
         return -1
 
     def insert(self, isbn: int, price: int) -> None:
         if isbn in self.cache:
-            self.cache[isbn] = (self.cache[isbn][0], self.get_age())
+            self.cache.move_to_end(isbn)
         else:
             if len(self.cache) == self.capacity:
-                oldest_isbn = min((value[1], isbn) for isbn, value in self.cache.items())[1]
-                self.erase(oldest_isbn)
-            self.cache[isbn] = (price, self.get_age())
+                self.cache.popitem(last=False)
+            self.cache[isbn] = price
         return
 
     def erase(self, isbn: int) -> bool:
