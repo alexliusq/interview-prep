@@ -11,18 +11,17 @@ from test_framework.test_utils import enable_executor_hook
 def lca(node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
 
-    ancestors0 = set()
-    ancestors1 = set()
+    ancestors = set()
     while node0 or node1:
         if node0:
-            if node0 in ancestors1:
+            if node0 in ancestors:
                 return node0
-            ancestors0.add(node0)
+            ancestors.add(node0)
             node0 = node0.parent
         if node1:
-            if node1 in ancestors0:
+            if node1 in ancestors:
                 return node1
-            ancestors1.add(node1)
+            ancestors.add(node1)
             node1 = node1.parent
     return None
 
