@@ -9,14 +9,30 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
+# def build_min_height_bst_from_sorted_array(A: List[int]) -> Optional[BstNode]:
+#     if not A:
+#         return None
+#     middle = len(A) // 2
+#     node = BstNode(A[middle])
+#     node.left = build_min_height_bst_from_sorted_array(A[:middle])
+#     ## exploits python list slicing return empty subarray if out of range
+#     node.right = build_min_height_bst_from_sorted_array(A[middle+1:])
+#     return node
+
+## solution with O(1) space, O(n) time
 def build_min_height_bst_from_sorted_array(A: List[int]) -> Optional[BstNode]:
+    def bst_helper(A, start, end):
+        if end < start:
+            return None
+        middle = (start + end) // 2
+        node = BstNode(A[middle])
+        node.left = bst_helper(A, start, middle - 1)
+        node.right = bst_helper(A, middle + 1, end)
+        return node
+
     if not A:
         return None
-    middle = len(A) // 2
-    node = BstNode(A[middle])
-    node.left = build_min_height_bst_from_sorted_array(A[:middle])
-    node.right = build_min_height_bst_from_sorted_array(A[middle+1:])
-    return node
+    return bst_helper(A, 0, len(A) - 1)
 
 @enable_executor_hook
 def build_min_height_bst_from_sorted_array_wrapper(executor, A):
