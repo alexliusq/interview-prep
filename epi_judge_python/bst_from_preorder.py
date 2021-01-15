@@ -6,8 +6,31 @@ from test_framework import generic_test
 
 def rebuild_bst_from_preorder(preorder_sequence: List[int]
                               ) -> Optional[BstNode]:
-    # TODO - you fill in here.
-    return None
+    if not preorder_sequence:
+        return None
+    current_val = preorder_sequence[0]
+    node = BstNode(current_val)
+
+    
+    
+    idx_greater_than = None
+    for idx, num in enumerate(preorder_sequence):
+        if num > current_val:
+            idx_greater_than = idx
+            break
+    
+    if idx_greater_than:
+        node.left = rebuild_bst_from_preorder(
+            preorder_sequence[1:idx_greater_than]
+        )
+        node.right = rebuild_bst_from_preorder(
+            preorder_sequence[idx_greater_than:]
+        )
+    else:
+        node.left = rebuild_bst_from_preorder(
+            preorder_sequence[1:]
+        )
+    return node
 
 
 if __name__ == '__main__':

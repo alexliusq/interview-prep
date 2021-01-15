@@ -10,8 +10,17 @@ from test_framework.test_utils import enable_executor_hook
 
 # Input nodes are nonempty and the key at s is less than or equal to that at b.
 def find_lca(tree: BstNode, s: BstNode, b: BstNode) -> Optional[BstNode]:
-    # TODO - you fill in here.
-    return None
+    smaller = s.data
+    larger = b.data
+    
+    while not ((smaller < tree.data < larger)
+                or (tree.data == smaller or tree.data == larger)
+              ):
+        if larger < tree.data:
+            tree = tree.left
+        else: ## both elements are on the right
+            tree = tree.right
+    return tree
 
 
 @enable_executor_hook
