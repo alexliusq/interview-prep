@@ -34,4 +34,4 @@ def is_binary_tree_bst_alternative(tree):
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('is_tree_a_bst.py', 'is_tree_a_bst.tsv',
-                                       is_binary_tree_bst))
+                                       is_binary_tree_bst_alternative))
