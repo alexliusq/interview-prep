@@ -9,8 +9,37 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def solve_sudoku(partial_assignment: List[List[int]]) -> bool:
-    print(partial_assignment)
-    return True
+    def get_next_index(partial_assignment):
+        for i in range(len(partial_assignment)):
+            for j in range(len(partial_assignment)):
+                if partial_assignment[i][j] == 0:
+                    return (i,j)
+        return None
+
+    next_index = get_next_index(partial_assignment)
+    
+    if next_index is None:
+        return True
+    valid_values = set(range(1,10))
+    row, col = next_index
+    for num in partial_assignment[row]:
+        valid_values.discard(num)
+    for num in list(zip(*partial_assignment))[col]:
+        valid_values.discard(num)
+    block_num = (row // 3) + (col // 3) * 3
+    block = gather_square_block(partial_assignment, 3, block_num)
+    # print('block', block)
+    for num in block:
+        valid_values.discard(num)
+    # print('valid values', valid_values)
+    for num in valid_values:
+        # print('trying for index', next_index, 'value', num)
+        partial_assignment[row][col] = num
+        if solve_sudoku(partial_assignment):
+            return True
+        else:
+            partial_assignment[row][col] = 0
+    return False
 
 
 def assert_unique_seq(seq):
@@ -40,7 +69,7 @@ def solve_sudoku_wrapper(executor, partial_assignment):
     solved = copy.deepcopy(partial_assignment)
 
     executor.run(functools.partial(solve_sudoku, solved))
-
+    # print(solved)
     if len(partial_assignment) != len(solved):
         raise TestFailure('Initial cell assignment has been changed')
 
