@@ -45,6 +45,24 @@ from test_framework import generic_test
 #     # print(result)
 #     return len(result[final_score])
 
+def num_combinations_for_final_score(final_score: int,
+                                     individual_play_scores: List[int]) -> int:
+
+
+    result = [[1] + [0] * final_score for _ in range(len(individual_play_scores))]
+    # print(result)
+    for play_index, play in enumerate(individual_play_scores):
+        combinations_per_score = result[play_index]
+        for score_index in range(1, final_score + 1):
+            num_combinations = 0
+            if score_index >= play:
+                num_combinations += result[play_index][score_index  - play]
+            if play_index >= 1:
+                num_combinations += result[play_index - 1][score_index]
+            result[play_index][score_index] = num_combinations
+    # print(result)
+    return result[len(individual_play_scores) - 1][final_score]
+
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('number_of_score_combinations.py',
