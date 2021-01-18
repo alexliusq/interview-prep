@@ -10,17 +10,17 @@ def decompose_into_dictionary_words(domain: str,
                                     dictionary: Set[str]) -> List[str]:
     @functools.cache
     def prefix_to_words(chars_before) -> List[str]:
-        if chars_before == 0:
-            return []
         for index in range(chars_before):
             word = ''.join(domain[index:chars_before])
             if word in dictionary:
                 prev_prefix = prefix_to_words(index)
                 # print(word, prev_prefix)
-                if prev_prefix is not None:
+                if index == 0:
+                    return [word]
+                if prev_prefix:
                     new_prefix = prev_prefix[:] + [word]
                     return new_prefix
-        return None
+        return []
 
     result = prefix_to_words(len(domain))
     print(result)
