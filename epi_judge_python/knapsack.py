@@ -61,27 +61,48 @@ Item = collections.namedtuple('Item', ('weight', 'value'))
      
 #     return find_max(tuple(items))
 
+# def optimum_subject_to_capacity(items:List[Item], capacity: int) -> int:
+#     def max_with_items(item_index):
+#         weight, value = items[item_index]
+#         for capacity_index in range(capacity + 1):
+#             if item_index == 0:
+#                 if capacity_index >= weight:
+#                     result[item_index][capacity_index] = value
+#             else:
+#                 max_with = 0
+#                 if capacity_index >= weight:
+#                     max_with = value + result[item_index - 1][capacity_index - weight]
+#                 max_without = result[item_index - 1][capacity_index]
+
+#                 result[item_index][capacity_index] = max(max_with, max_without)
+
+
+#     result = [[0] * (1 + capacity) for _ in items]
+#     for item_index, _ in enumerate(items):
+#         max_with_items(item_index)
+#     # print(result)
+#     return result[-1][-1]
+
 def optimum_subject_to_capacity(items:List[Item], capacity: int) -> int:
-    def max_with_items(item_index):
+
+    @functools.cache
+    def max_for_item(item_index, remaining_capacity):
         weight, value = items[item_index]
-        for capacity_index in range(capacity + 1):
-            if item_index == 0:
-                if capacity_index >= weight:
-                    result[item_index][capacity_index] = value
+        if item_index == 0:
+            if remaining_capacity >= weight:
+                return value
             else:
-                max_with = 0
-                if capacity_index >= weight:
-                    max_with = value + result[item_index - 1][capacity_index - weight]
-                max_without = result[item_index - 1][capacity_index]
-                
-                result[item_index][capacity_index] = max(max_with, max_without)
+                return 0
+        else:
+            max_with = 0
+            if remaining_capacity >= weight:
+                max_with = value + max_for_item(item_index - 1, remaining_capacity - weight)
+            max_without = max_for_item(item_index - 1, remaining_capacity)
+
+            return max(max_with, max_without)
 
 
-    result = [[0] * (1 + capacity) for _ in items]
-    for item_index, _ in enumerate(items):
-        max_with_items(item_index)
-    # print(result)
-    return result[-1][-1]
+    return max_for_item(len(items) - 1, capacity)
 
 @enable_executor_hook
 def optimum_subject_to_capacity_wrapper(executor, items, capacity):
