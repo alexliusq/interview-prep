@@ -52,7 +52,6 @@ def num_combinations_for_final_score(final_score: int,
     result = [[1] + [0] * final_score for _ in range(len(individual_play_scores))]
     # print(result)
     for play_index, play in enumerate(individual_play_scores):
-        combinations_per_score = result[play_index]
         for score_index in range(1, final_score + 1):
             num_combinations = 0
             if score_index >= play:
