@@ -13,13 +13,14 @@ def decompose_into_dictionary_words(domain: str,
         for index in range(chars_before):
             word = ''.join(domain[index:chars_before])
             if word in dictionary:
-                prev_prefix = prefix_to_words(index)
-                # print(word, prev_prefix)
                 if index == 0:
                     return [word]
-                if prev_prefix:
-                    new_prefix = prev_prefix[:] + [word]
-                    return new_prefix
+
+                prev_words = prefix_to_words(index)
+                # print(word, prev_prefix)
+                if prev_words:
+                    new_words = prev_words[:] + [word]
+                    return new_words
         return []
 
     result = prefix_to_words(len(domain))
