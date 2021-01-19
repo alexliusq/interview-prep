@@ -1,5 +1,6 @@
 import functools
 from typing import List
+from itertools import accumulate
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
@@ -11,8 +12,15 @@ MPG = 20
 # gallons[i] is the amount of gas in city i, and distances[i] is the
 # distance city i to the next city.
 def find_ample_city(gallons: List[int], distances: List[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+    gas_delta = [ (gallon * MPG - distance) // MPG 
+        for (gallon, distance) in zip(gallons, distances)
+    ]
+
+    running_total = accumulate(gas_delta)
+    # print(list(running_total))
+    min_index, min_value = min(enumerate(running_total), key = lambda x: x[1])
+    # print(min_index, min_value)
+    return (min_index + 1) % len(gallons)
 
 
 @enable_executor_hook
