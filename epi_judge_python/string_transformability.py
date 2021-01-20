@@ -25,17 +25,19 @@ def transform_string(D: Set[str], s: str, t: str) -> int:
 
     def find_path(start: str):
         queue = deque([(start, 0)])
-        D.remove(start)
+        # D.remove(start)
         while len(queue) > 0:
             (current_string, distance) = queue.popleft()
             if current_string == t:
                 return distance
-
+            if current_string not in D:
+                continue
+            D.remove(current_string)
             for i in range(len(current_string)):
                 for letter in string.ascii_lowercase:
                     candidate = current_string[:i] + letter + current_string[(i + 1):]
                     if candidate in D:
-                        D.remove(candidate)
+                        # D.remove(candidate)
                         queue.append((candidate, distance + 1))
             
         return -1
