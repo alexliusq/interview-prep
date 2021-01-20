@@ -1,6 +1,8 @@
 import collections
 import copy
+from decimal import ROUND_05UP
 import functools
+from os import stat_result
 from typing import List
 
 from test_framework import generic_test
@@ -14,8 +16,32 @@ Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 def search_maze(maze: List[List[int]], s: Coordinate,
                 e: Coordinate) -> List[Coordinate]:
-    # TODO - you fill in here.
-    return []
+    visited = set()
+    directions = [(-1,0), (1,0), (0,1), (0, -1)]
+    def search_coordinate(current: Coordinate) -> List[Coordinate]:
+        if current == e:
+            return [e]
+        if current in visited:
+            return []
+        visited.add(current)
+        # print('yolo')
+        for direction in directions:
+            next_coordinate = Coordinate(current[0] + direction[0], current[1] + direction[1])
+            # print(next_coordinate)
+            if (0 <= next_coordinate[0] < len(maze) and
+                0 <= next_coordinate[1] < len(maze[0]) and
+                maze[next_coordinate[0]][next_coordinate[1]] == WHITE
+                ):
+                possible_path = search_coordinate(next_coordinate)
+                if possible_path:
+                    possible_path.append(current)
+                    return possible_path
+        return []
+    # print(maze)
+    path_to_end = search_coordinate(s)
+    path_to_end.reverse()
+    # print(path_to_end)
+    return path_to_end
 
 
 def path_element_is_feasible(maze, prev, cur):
