@@ -18,8 +18,6 @@ def n_queens(n: int) -> List[List[int]]:
             column_placements[row] = col
             row_placement(row + 1)
 
-
-
     result = []
     column_placements = [0] * n
     row_placement(0)

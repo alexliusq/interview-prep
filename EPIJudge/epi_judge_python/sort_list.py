@@ -53,7 +53,7 @@ def merge_two_sorted_lists(L1: Optional[ListNode],
         tail = tail.next
     tail.next = L1 or L2
     return dummy_head.next
-
+    
 def stable_sort_list(L: Optional[ListNode]) -> Optional[ListNode]:
     if L is None or L.next is None:
         return L
