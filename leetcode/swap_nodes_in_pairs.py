@@ -19,3 +19,11 @@ def swapPairs(head: ListNode) -> ListNode:
         tail = tail.next
     tail.next = None
     return dummy_head.next
+
+def swapPairs(head: ListNode) -> ListNode:
+    if not (head and head.next):
+        return head
+    next_pair = head.next.next
+    head, head.next = head.next, head
+    head.next.next = swapPairs(next_pair)
+    return head
