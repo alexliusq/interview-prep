@@ -30,3 +30,14 @@ def isValidBST(root: TreeNode) -> bool:
     
     valid_bst, _ = bst_helper(root)
     return valid_bst
+
+def isValidBST(root: TreeNode) -> bool:
+    def bst_helper(root: TreeNode, floor, ceiling):
+        if not root:
+            return True
+        if root.val <= floor or root.val >= ceiling:
+            return False
+        return (bst_helper(root.left, floor, root.val) and
+        bst_helper(root.right, root.val, ceiling))
+    
+    return bst_helper(root, float('-inf'), flot('inf'))
