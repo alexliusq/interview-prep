@@ -32,6 +32,15 @@ def generateParenthesis(self, n: int) -> List[str]:
     result = []
     backtrack('', 0, 0)
     return result
+
+def generateParenthesis(n):
+    dp = [[] for i in range(n + 1)]
+    dp[0].append('')
+    for i in range(n + 1):
+        for j in range(i):
+            print(dp)
+            dp[i] += ['(' + x + ')' + y for x in dp[j] for y in dp[i - j - 1]]
+    return dp[n]
     
 
 print(generateParenthesis(4))
