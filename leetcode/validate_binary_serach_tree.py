@@ -1,3 +1,8 @@
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 def isValidBST(root: TreeNode) -> bool:
     def bst_helper(root: TreeNode):
@@ -40,4 +45,4 @@ def isValidBST(root: TreeNode) -> bool:
         return (bst_helper(root.left, floor, root.val) and
         bst_helper(root.right, root.val, ceiling))
     
-    return bst_helper(root, float('-inf'), flot('inf'))
+    return bst_helper(root, float('-inf'), float('inf'))
