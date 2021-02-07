@@ -17,3 +17,19 @@ def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
     result = []
     dfs([], 0)
     return result
+
+def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+    def dfs(subset, start_from):
+        
+        result.append(subset)
+
+        for i in range(start_from, len(nums)):
+            if i > start_from and nums[i] == nums[i-1]:
+                continue
+            dfs([*subset, nums[i]], i + 1)
+                
+                
+    nums.sort()
+    result = []
+    dfs([],0)
+    return result
