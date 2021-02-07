@@ -1,23 +1,23 @@
 from typing import List
 
-def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
-    def backtrack(combination, comb_sum, index):
-        # print(combination, comb_sum, index)
-        if comb_sum == target:
-            result.append(combination)
-            return
-        if comb_sum > target or index >= len(candidates):
-            return
+# def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
+#     def backtrack(combination, comb_sum, index):
+#         # print(combination, comb_sum, index)
+#         if comb_sum == target:
+#             result.append(combination)
+#             return
+#         if comb_sum > target or index >= len(candidates):
+#             return
 
-        candidate = candidates[index]
-        for multiple in range(target // candidate + 1):
-            backtrack(combination + [candidate] * multiple, comb_sum + candidate * multiple, index + 1)
+#         candidate = candidates[index]
+#         for multiple in range(target // candidate + 1):
+#             backtrack(combination + [candidate] * multiple, comb_sum + candidate * multiple, index + 1)
         
     
-    result = []
-    backtrack([], 0, 0)
-    print(result)
-    return result
+#     result = []
+#     backtrack([], 0, 0)
+#     print(result)
+#     return result
 
 
 def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
