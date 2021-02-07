@@ -1,4 +1,5 @@
 def subsets(self, nums: List[int]) -> List[List[int]]:
+    ## not really backtrack
     def backtrack(subset, num_count):
         if num_count == len(nums):
             result.append(subset)
