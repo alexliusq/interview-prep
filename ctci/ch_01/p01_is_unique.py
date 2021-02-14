@@ -1,12 +1,23 @@
 import unittest
 from collections import Counter
 
-def is_unique(s: str) -> bool:
-    if len(s) >= 128:
-        return False
+# def is_unique(s: str) -> bool:
+#     if len(s) >= 128:
+#         return False
     
-    # return all(count <= 1 for count in Counter(s).values())
-    return False
+#     # return all(count <= 1 for count in Counter(s).values())
+#     return False
+
+def is_unique(s: str) -> bool:
+    char_seen = [False for _ in range(128)]
+    for char in s:
+        char_index = ord(char)
+        if char_seen[char_index]:
+            return False
+        char_seen[char_index] = True
+    
+    return True
+
 
 test_cases = [
     ('11123', False),
