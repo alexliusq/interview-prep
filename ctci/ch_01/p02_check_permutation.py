@@ -4,6 +4,8 @@ from collections import Counter
 ##O(n) space use Counter, O(n) time
 ## O(nlogn) time, O(1) space, sort and linearly scan
 
+## ASK ABOUT whitespace and case!
+
 def is_permutation(s1: str, s2: str) -> bool:
     if len(s1) != len(s2):
         return False
