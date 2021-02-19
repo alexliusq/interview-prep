@@ -9,16 +9,18 @@ NUM_PEGS = 3
 
 
 def compute_tower_hanoi(num_rings: int) -> List[List[int]]:
-    def move_rings(num_to_move, from_peg, to_peg, use_peg):
-        if num_to_move == 0:
+    # print('yolo')
+
+    def hanoi(n, from_peg, target_peg, temp_peg):
+        if n == 0:
             return
-        move_rings(num_to_move - 1, from_peg, use_peg, to_peg)
-        result.append([from_peg, to_peg])
-        move_rings(num_to_move - 1, use_peg, to_peg, from_peg)
+        hanoi(n - 1, from_peg, temp_peg, target_peg)
+        result.append([from_peg, target_peg])
+        hanoi(n - 1, temp_peg, target_peg, from_peg)
 
 
     result = []
-    move_rings(num_rings, 0, 1, 2)
+    hanoi(num_rings, 0, 1, 2)
     return result
 
 
