@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Router, Link, RouteComponentProps } from '@reach/router';
 
-import { Counter } from './components';
+import { Counter, CRUD } from './components';
 // import logo from './logo.svg';
 // import './App.css';
 
@@ -29,6 +29,7 @@ function App() {
     <Router>
       <Home path='/'/>
       <Counter path="/counter"/>
+      <CRUD path='/crud'/>
     </Router>
   );
 }
